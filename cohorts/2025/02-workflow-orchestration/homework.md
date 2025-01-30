@@ -50,7 +50,10 @@ ls -lh yellow_tripdata_2020-12.csv
 Solution:
 I think value of `file` is `{{inputs.taxi}}_tripdata_{{inputs.year}}-{{inputs.month}}.csv` and redered value is `green_tripdata_2020-04.csv`.
 
-3. How many rows are there for the `Yellow` Taxi data for the year 2020?
+Solution:
+I think value of `file` is `{{inputs.taxi}}_tripdata_{{inputs.year}}-{{inputs.month}}.csv` and redered value is `green_tripdata_2020-04.csv`.
+
+3. How many rows are there for the `Yellow` Taxi data for all CSV files in the year 2020?
 
 - 13,537.299
 - **24,648,499**
@@ -72,7 +75,22 @@ Solution:
 2020-12: 1461897
 sum: 24,648,499
 
-4. How many rows are there for the `Green` Taxi data for the year 2020?
+Solution:
+2020-01: 6405008
+2020-02: 6299354
+2020-03: 3007292
+2020-04: 237993
+2020-05: 348371
+2020-06: 549760
+2020-07: 800412
+2020-08: 1007284
+2020-09: 1341012
+2020-10: 1681131
+2020-11: 1508985
+2020-12: 1461897
+sum: 24,648,499
+
+4. How many rows are there for the `Green` Taxi data for all CSV files in the year 2020?
 
 - 5,327,301
 - 936,199
@@ -94,7 +112,22 @@ Solution:
 2020-12: 83130
 sum: 1,734,051
 
-5. How many rows are there for the `Yellow` Taxi data for March 2021?
+Solution:
+2020-01: 447770
+2020-02: 398632
+2020-03: 223406
+2020-04: 35612
+2020-05: 57360
+2020-06: 63109
+2020-07: 72257
+2020-08: 81063
+2020-09: 87987
+2020-10: 95120
+2020-11: 88605
+2020-12: 83130
+sum: 1,734,051
+
+5. How many rows are there for the `Yellow` Taxi data for the March 2021 CSV file?
 
 - 1,428,092
 - 706,911
