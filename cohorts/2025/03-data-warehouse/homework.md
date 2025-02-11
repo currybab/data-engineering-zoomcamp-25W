@@ -174,6 +174,20 @@ It is best practice in Big Query to always cluster your data:
 if data is small, no difference
 if data is large, should consider partitioning by time
 
+I store the data in GCP Bucket
+
+## Question 8:
+
+It is best practice in Big Query to always cluster your data:
+
+- True
+- **False**
+
+### solution:
+
+if data is small, no difference
+if data is large, should consider partitioning by time
+
 ## (Bonus: Not worth points) Question 9:
 
 No Points: Write a `SELECT count(*)` query FROM the materialized table you created. How many bytes does it estimate will be read? Why?
