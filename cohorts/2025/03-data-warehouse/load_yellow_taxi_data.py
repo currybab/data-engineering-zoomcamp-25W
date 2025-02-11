@@ -52,7 +52,6 @@ def upload_to_gcs(file_path, max_retries=3):
             print(f"Uploading {file_path} to {BUCKET_NAME} (Attempt {attempt + 1})...")
             blob.upload_from_filename(file_path)
             print(f"Uploaded: gs://{BUCKET_NAME}/{blob_name}")
-
             if verify_gcs_upload(blob_name):
                 print(f"Verification successful for {blob_name}")
                 return
