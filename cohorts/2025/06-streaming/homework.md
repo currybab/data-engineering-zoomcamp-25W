@@ -3,13 +3,13 @@
 In this homework, we're going to learn about streaming with PyFlink.
 
 Instead of Kafka, we will use Red Panda, which is a drop-in
-replacement for Kafka. It implements the same interface, 
+replacement for Kafka. It implements the same interface,
 so we can use the Kafka library for Python for communicating
 with it, as well as use the Kafka connector in PyFlink.
 
 For this homework we will be using the Taxi data:
-- Green 2019-10 data from [here](https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz)
 
+- Green 2019-10 data from [here](https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/green_tripdata_2019-10.csv.gz)
 
 ## Setup
 
@@ -49,7 +49,7 @@ pgcli -h localhost -p 5432 -u postgres -d postgres
 
 Run these query to create the Postgres landing zone for the first events and windows:
 
-```sql 
+```sql
 CREATE TABLE processed_events (
     test_data INTEGER,
     event_timestamp TIMESTAMP
@@ -58,13 +58,13 @@ CREATE TABLE processed_events (
 CREATE TABLE processed_events_aggregated (
     event_hour TIMESTAMP,
     test_data INTEGER,
-    num_hits INTEGER 
+    num_hits INTEGER
 );
 ```
 
 ## Question 1: Redpanda version
 
-Now let's find out the version of redpandas. 
+Now let's find out the version of redpandas.
 
 For that, check the output of the command `rpk help` _inside the container_. The name of the container is `redpanda-1`.
 
@@ -72,6 +72,18 @@ Find out what you need to execute based on the `help` output.
 
 What's the version, based on the output of the command you executed? (copy the entire version)
 
+Answer:
+```
+$ rpk version
+Version:     v24.2.18
+Git ref:     f9a22d4430
+Build date:  2025-02-14T12:59:41Z
+OS/Arch:     linux/arm64
+Go version:  go1.23.1
+
+Redpanda Cluster
+  node-1  v24.2.18 - f9a22d443087b824803638623d6b7492ec8221f9
+```
 
 ## Question 2. Creating a topic
 
@@ -84,6 +96,12 @@ Read the output of `help` and based on it, create a topic with name `green-trips
 
 What's the output of the command for creating a topic? Include the entire output in your answer.
 
+Answer:
+```
+$ rpk topic create green-trips
+TOPIC        STATUS
+green-trips  OK
+```
 
 ## Question 3. Connecting to the Kafka server
 
@@ -123,19 +141,24 @@ producer.bootstrap_connected()
 Provided that you can connect to the server, what's the output
 of the last command?
 
+Answer:
+```
+True
+```
+
 ## Question 4: Sending the Trip Data
 
 Now we need to send the data to the `green-trips` topic
 
 Read the data, and keep only these columns:
 
-* `'lpep_pickup_datetime',`
-* `'lpep_dropoff_datetime',`
-* `'PULocationID',`
-* `'DOLocationID',`
-* `'passenger_count',`
-* `'trip_distance',`
-* `'tip_amount'`
+- `'lpep_pickup_datetime',`
+- `'lpep_dropoff_datetime',`
+- `'PULocationID',`
+- `'DOLocationID',`
+- `'passenger_count',`
+- `'trip_distance',`
+- `'tip_amount'`
 
 Now send all the data using this code:
 
@@ -152,7 +175,7 @@ After sending all the messages, flush the data:
 producer.flush()
 ```
 
-Use `from time import time` to see the total time 
+Use `from time import time` to see the total time
 
 ```python
 from time import time
@@ -165,22 +188,22 @@ t1 = time()
 took = t1 - t0
 ```
 
-How much time did it take to send the entire dataset and flush? 
+How much time did it take to send the entire dataset and flush?
 
+Answer:
+22.0463650226593
 
 ## Question 5: Build a Sessionization Window (2 points)
 
 Now we have the data in the Kafka stream. It's time to process it.
 
-* Copy `aggregation_job.py` and rename it to `session_job.py`
-* Have it read from `green-trips` fixing the schema
-* Use a [session window](https://nightlies.apache.org/flink/flink-docs-master/docs/dev/datastream/operators/windows/) with a gap of 5 minutes
-* Use `lpep_dropoff_datetime` time as your watermark with a 5 second tolerance
-* Which pickup and drop off locations have the longest unbroken streak of taxi trips?
-
+- Copy `aggregation_job.py` and rename it to `session_job.py`
+- Have it read from `green-trips` fixing the schema
+- Use a [session window](https://nightlies.apache.org/flink/flink-docs-master/docs/dev/datastream/operators/windows/) with a gap of 5 minutes
+- Use `lpep_dropoff_datetime` time as your watermark with a 5 second tolerance
+- Which pickup and drop off locations have the longest unbroken streak of taxi trips?
 
 ## Submitting the solutions
 
 - Form for submitting: https://courses.datatalks.club/de-zoomcamp-2025/homework/hw6
 - Deadline: See the website
-
